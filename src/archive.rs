@@ -1,7 +1,7 @@
 // use std::{fs::File, path::PathBuf, str::FromStr};
 // use flate2::{read::GzEncoder, Compression};
 // use tar::{Archive, Builder};
-use std::{fs::File, path::PathBuf};
+use std::{fs::File, path::{Path, PathBuf}};
 use tar::{Archive};
 
 // /// 归档
@@ -17,8 +17,10 @@ use tar::{Archive};
 
 /// 解压到
 pub fn unpack(dest_apth: &PathBuf) -> Result<(), std::io::Error> {
-    let path = std::env::var("BASSINET_COIN_TEMPLATE_PATH").expect("BASSINET_COIN_TEMPLATE_PATH must be set");
+    let template_path = std::env::var("BASSINET_TEMPLATE_PATH").expect("BASSINET_TEMPLATE_PATH must be set");
+    let template_path = Path::new(&template_path);
     // let path = "templates/bassinet_coin.tar.gz";
+    let path = template_path.join("bassinet_coin.tar.gz");
     let tar_gz = File::open(path)?;
     let mut archive = Archive::new(tar_gz);
     archive.unpack(dest_apth)?;
@@ -38,8 +40,10 @@ pub fn unpack(dest_apth: &PathBuf) -> Result<(), std::io::Error> {
 
 /// 解压到
 pub fn unpack_bassinet(dest_apth: &PathBuf) -> Result<(), std::io::Error> {
+    let template_path = std::env::var("BASSINET_TEMPLATE_PATH").expect("BASSINET_TEMPLATE_PATH must be set");
+    let template_path = Path::new(&template_path);
     // let path = "templates/bassinet.tar.gz";
-    let path = std::env::var("BASSINET_NFT_TEMPLATE_PATH").expect("BASSINET_NFT_TEMPLATE_PATH must be set");
+    let path = template_path.join("bassinet.tar.gz");
     let tar_gz = File::open(path)?;
     let mut archive = Archive::new(tar_gz);
     archive.unpack(dest_apth)?;

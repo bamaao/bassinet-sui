@@ -3,6 +3,10 @@ name = "bassinet-sui"
 version = "0.1.0"
 edition = "2024"
 
+[[bin]]
+name= "rabbitmq_control"
+path = "src/rabbitmq_util.rs"
+
 [dependencies]
 sui-sdk = { git = "https://github.com/mystenlabs/sui", package = "sui-sdk"}
 sui-keys = { git = "https://github.com/mystenlabs/sui", package = "sui-keys"}

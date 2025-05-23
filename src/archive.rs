@@ -17,7 +17,8 @@ use tar::{Archive};
 
 /// 解压到
 pub fn unpack(dest_apth: &PathBuf) -> Result<(), std::io::Error> {
-    let path = "templates/bassinet_coin.tar.gz";
+    let path = std::env::var("BASSINET_COIN_TEMPLATE_PATH").expect("BASSINET_COIN_TEMPLATE_PATH must be set");
+    // let path = "templates/bassinet_coin.tar.gz";
     let tar_gz = File::open(path)?;
     let mut archive = Archive::new(tar_gz);
     archive.unpack(dest_apth)?;
@@ -37,7 +38,8 @@ pub fn unpack(dest_apth: &PathBuf) -> Result<(), std::io::Error> {
 
 /// 解压到
 pub fn unpack_bassinet(dest_apth: &PathBuf) -> Result<(), std::io::Error> {
-    let path = "templates/bassinet.tar.gz";
+    // let path = "templates/bassinet.tar.gz";
+    let path = std::env::var("BASSINET_NFT_TEMPLATE_PATH").expect("BASSINET_NFT_TEMPLATE_PATH must be set");
     let tar_gz = File::open(path)?;
     let mut archive = Archive::new(tar_gz);
     archive.unpack(dest_apth)?;
